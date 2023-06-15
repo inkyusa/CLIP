@@ -194,7 +194,8 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
     return model, _transform(model.input_resolution.item())
 
 
-def tokenize(texts: Union[str, List[str]], context_length: int = 77, truncate: bool = False) -> Union[torch.IntTensor, torch.LongTensor]:
+# def tokenize(texts: Union[str, List[str]], context_length: int = 77, truncate: bool = False) -> Union[torch.IntTensor, torch.LongTensor]:
+def tokenize(texts: Union[str, List[str]], context_length: int = 77, truncate: bool = True) -> Union[torch.IntTensor, torch.LongTensor]:
     """
     Returns the tokenized representation of given input string(s)
 
@@ -216,7 +217,6 @@ def tokenize(texts: Union[str, List[str]], context_length: int = 77, truncate: b
     """
     if isinstance(texts, str):
         texts = [texts]
-
     sot_token = _tokenizer.encoder["<|startoftext|>"]
     eot_token = _tokenizer.encoder["<|endoftext|>"]
     all_tokens = [[sot_token] + _tokenizer.encode(text) + [eot_token] for text in texts]
